@@ -26,9 +26,8 @@ const bot = new Discord.Client();
 
 bot.on("ready", (e) => {
   console.log("BOT READY");
-
-  // Subreddit Targets (softcore)
   const botEnabled = BOT_ON === "true";
+  // 30 minutes
   const timeToWaitInMs = 1000 * 60 * 30;
 
   // The channel to send the images to
@@ -36,6 +35,8 @@ bot.on("ready", (e) => {
     return channelObj.name === channelName;
   });
 
+  // Loop through the target subreddits and grab the most recent top post
+  // Take the top post and post the image link to the target channel
   const loopThroughTargets = () => {
     TARGETS.forEach(async (subreddit) => {
       const {
@@ -55,8 +56,7 @@ bot.on("ready", (e) => {
     });
   };
 
-  // Loop through the target subreddits and grab the most recent top post
-  // Take the top post and post the image link to the target channel
+  // Only run this if the bot is enabled
   if (botEnabled) {
     loopThroughTargets();
     setTimeout(loopThroughTargets, timeToWaitInMs);
