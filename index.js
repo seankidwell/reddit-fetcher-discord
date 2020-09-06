@@ -45,7 +45,8 @@ bot.on("ready", (e) => {
   // Take the top post and post the image link to the target channel
   const loopThroughTargets = () => {
     console.log("FETCHING TARGETS");
-    const messageSent = false;
+    let messageSent = false;
+    
     TARGETS.forEach(async (subreddit) => {
       const {
         data: {
