@@ -28,8 +28,8 @@ const bot = new Discord.Client();
 bot.on("ready", (e) => {
   console.log("BOT READY");
   const botEnabled = BOT_ON === "true";
-  // 30 minutes
-  const timeToWaitInMs = 1000 * 60 * 30;
+  // 1 hour
+  const timeToWaitInMs = 1000 * 60 * 60;
 
   // The channel to send the images to
   const channel = bot.channels.find((channelObj) => {
@@ -69,8 +69,13 @@ bot.on("ready", (e) => {
 
   // Only run this if the bot is enabled
   if (botEnabled) {
-    loopThroughTargets();
-    setInterval(loopThroughTargets, timeToWaitInMs);
+    let hour = new Date;
+    hour = hour.getHours();
+    // Only run functions at 12, 5, 9 PM
+    if (hour === 12 || hour === 17 || hour === 21) {
+      loopThroughTargets();
+      setInterval(loopThroughTargets, timeToWaitInMs);
+    }
   }
 
   const { username, id } = bot.user;
